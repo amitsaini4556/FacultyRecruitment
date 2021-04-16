@@ -1,0 +1,5 @@
+Django==3.2
+django-filter==2.4.0
+django-form-utils==1.0.3
+django-import-export==2.1.0
+validate-email==1.3
