@@ -23,6 +23,9 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
+## Rules
+Use camelcase naming convention for new file
+Use SOLID principles
 ## Contributing
 
 I love contributions, so please feel free to fix bugs, improve things, provide documentation. Just send a pull request.
