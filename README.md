@@ -24,8 +24,8 @@ $ python manage.py runserver
 ```
 
 ## Rules
-- Use camelcase naming convention for new file
-- Use SOLID principles
+- Use camelcase naming convention for new filename, methods and variables
+- Use [SOLID principles](https://en.m.wikipedia.org/wiki/SOLID)
 ## Contributing
 
 I love contributions, so please feel free to fix bugs, improve things, provide documentation. Just send a pull request.
