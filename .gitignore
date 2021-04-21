@@ -1,9 +1,7 @@
 # .gitignore
 # Project files and directories
-/myproject/local_settings.py
-/myproject/static/
-/myproject/tmp/
-/myproject/media/
+/facultyRecruitment/local_settings.py
+/facultyRecruitment/tmp/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
