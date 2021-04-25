@@ -12,18 +12,18 @@ def signIn(request):
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password =request.POST.get('password')
-	
+
 		user = authenticate(request, username=username, password=password)
 
 		if user is not None:
 			login(request, user)
 			return redirect('dashboard')
 		else:
-			messages.info(request, 'Username OR password is incorrect')
+			messages.info(request, 'Username OR Password is incorrect.')
 
 	context = {}
-	return render(request, 'accounts/signIn.html', context)
+	return render(request, 'userAccounts/signIn.html', context)
 
 
 def dashboard(request):
-    return render(request,'accounts/dashboard.html')
+    return render(request,'userAccounts/dashboard.html')
