@@ -28,12 +28,12 @@
 						<span class="focus-input100"></span>
 					</div>
 					{% for message in messages %}
-						<p id="messages" style="color:red;">{{message}}</p>
+						<p id="messages">{{message}}</p>
 					{% endfor %}
 					<div class="flex-sb-m w-full p-b-48">
 						<div class="contact100-form-checkbox">
 								Don't have an account?
-							<a href="#">Sign Up</a>
+							<a href="{% url 'register' %}">Sign Up</a>
 						</div>
 
 						<div>
