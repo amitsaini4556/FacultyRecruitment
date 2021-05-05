@@ -11,7 +11,7 @@ class CreateUserForm(UserCreationForm):
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
 
-	def clean_email(self):
+	def isValidEmail(self):
 		email = self.cleaned_data.get('email')
 		if validate_email(email,verify=True) == True:
 			try:
