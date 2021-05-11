@@ -45,4 +45,4 @@ def signUp(request):
 
 
 def dashboard(request):
-    return render(request,'userAccounts/dashboard.html')
+    return render(request,'jobs/dashboard.html')
