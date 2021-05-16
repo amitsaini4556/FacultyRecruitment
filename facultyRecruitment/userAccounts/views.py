@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -19,7 +19,7 @@ def signIn(request):
 
 		if user is not None:
 			login(request, user)
-			return redirect('dashboard')
+			return redirect('jobs')
 		else:
 			messages.info(request, 'Username OR Password is incorrect.')
 
@@ -43,6 +43,10 @@ def signUp(request):
 	context = {'form':form}
 	return render(request, 'userAccounts/signUp.html', context)
 
+def signOut(request):
+	logout(request)
+	return redirect('jobs')
 
-def dashboard(request):
-    return render(request,'jobs/dashboard.html')
+
+def jobs(request):
+    return render(request,'jobs/jobs.html')
