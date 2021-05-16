@@ -20,6 +20,8 @@ class Jobs(models.Model):
     availablePositions = models.IntegerField()
     image = models.ImageField()
     adminPhoneNumber = models.CharField(validators=[validatePhoneNumber], max_length=10)
+    adminEmail = models.EmailField()
+    collegeWebsite = models.URLField(max_length=200)
 
     def __str__(self):
         return str(self.jobId) + " " + str(self.adminId) + " " + str(self.title) + " " + str(self.position) + " " + str(self.datePosted) + " " + str(self.applyBy) + " " + str(self.collegeName) + " " + str(self.availablePositions)
