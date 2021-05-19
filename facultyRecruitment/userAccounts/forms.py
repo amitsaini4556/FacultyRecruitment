@@ -11,9 +11,10 @@ class CreateUserForm(UserCreationForm):
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
 
-	def isValidEmail(self):
+	def clean_email(self):
 		email = self.cleaned_data.get('email')
-		if validate_email(email,verify=True) == True:
+
+		if self.isEmailValid(email):
 			try:
 				match = User.objects.get(email = email)
 			except User.DoesNotExist:
@@ -21,3 +22,10 @@ class CreateUserForm(UserCreationForm):
 			raise forms.ValidationError('This email address is already in use.')
 		else:
 			raise forms.ValidationError('This email address is Invalid.')
+
+	def isEmailValid(self,email):
+		try:
+			validate_email(email,check_mx=True,verify=True)
+			return True
+		except :
+			return False
