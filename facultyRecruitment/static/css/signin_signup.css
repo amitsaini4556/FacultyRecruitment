@@ -415,7 +415,33 @@ iframe {
   background-color: #57b846;
 }
 
+.login100-custom-form-btn {
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
 
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  height: 45px;
+  background-color: #333333;
+  border-radius: 27px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login100-custom-form-btn:hover {
+  background-color: #57b846;
+}
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
