@@ -20,7 +20,7 @@ def signIn(request):
 
 		if user is not None:
 			login(request, user)
-			return redirect('dashboard')
+			return redirect('jobs')
 		else:
 			messages.info(request, 'Username OR Password is incorrect.')
 
@@ -49,6 +49,10 @@ def signUp(request):
 	context = {'form':form}
 	return render(request, 'userAccounts/signUp.html', context)
 
+def signOut(request):
+	logout(request)
+	return redirect('jobs')
 
-def dashboard(request):
-    return render(request,'jobs/dashboard.html')
+
+def jobs(request):
+    return render(request,'jobs/jobs.html')
