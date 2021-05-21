@@ -64,7 +64,7 @@ section {
 
 /* Header Style */
 
-.cf:before, 
+.cf:before,
 .cf:after {
   content: '';
   display: table;
@@ -330,39 +330,39 @@ section.banner {
   position: relative;
 }
 
-.thumb-img { 
-  position: relative; 
+.thumb-img {
+  position: relative;
 }
 
-.thumb-img img { 
-  position: relative; z-index: 2; 
+.thumb-img img {
+  position: relative; z-index: 2;
 }
 
-.input-group-addon:last-child { 
-  border: 1px solid rgba(0,0,0,.05); 
+.input-group-addon:last-child {
+  border: 1px solid rgba(0,0,0,.05);
 }
 
 .thumb-img:before,
-.banner:before { 
-  content: ''; 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  bottom: 0; 
-  background-color: rgba(0,0,0,.3); 
+.banner:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.3);
   z-index: 1;
   border-radius: 5px;
 }
 
-.thumb-img:before { 
-  z-index: 3; 
-  background-color: rgba(0,0,0,.3); 
+.thumb-img:before {
+  z-index: 3;
+  background-color: rgba(0,0,0,.3);
 }
 
-.featured-item .thumb-img:before {  
-  border-bottom-left-radius: 0; 
-  border-bottom-right-radius: 0; 
+.featured-item .thumb-img:before {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .banner .container {
@@ -649,8 +649,8 @@ section.banner {
   margin-bottom: 15px;
 }
 
-.featured-places .featured-item .down-content span strong { 
-  font-size: 22px;  
+.featured-places .featured-item .down-content span strong {
+  font-size: 22px;
 }
 
 .featured-places .featured-item .down-content p {
@@ -735,7 +735,7 @@ section.our-services .service-item h4 {
   border: 1px solid #ddd;
 }
 .accordion li:last-child .accordion-trigger  {
-  
+
 }
 .accordion-content {
   display: none;
@@ -837,10 +837,10 @@ section#video-container {
 
 }
 
-.video-content p { 
-  line-height: 2; 
-  color: #fff; 
-  text-align: center; 
+.video-content p {
+  line-height: 2;
+  color: #fff;
+  text-align: center;
 }
 
 #video-container .video-content .inner {
@@ -1132,7 +1132,7 @@ textarea.form-control {
   100% {
     top: 0;
     opacity: 1;
-  }  
+  }
 }
 
 @keyframes totop-out {
@@ -1143,7 +1143,7 @@ textarea.form-control {
   100% {
     top: -100%;
     opacity: 0;
-  }  
+  }
 }
 
 
@@ -1319,13 +1319,13 @@ footer .contact-info ul li a {
   footer .contact-info {
     margin-top: 60px;
   }
-  
+
 }
 
-main > section { 
-  background: #fff;  
+main > section {
+  background: #fff;
 }
-  
-main > section:nth-child(even) { 
-  background: #f8f8f8; 
+
+main > section:nth-child(even) {
+  background: #f8f8f8;
 }
