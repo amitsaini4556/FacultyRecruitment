@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from validate_email import validate_email
+from django.contrib.auth.forms import PasswordResetForm
 
 from .models import *
 
@@ -29,3 +30,12 @@ class CreateUserForm(UserCreationForm):
 			return True
 		except :
 			return False
+
+class EmailValidationOnForgotPassword(PasswordResetForm):
+	def clean_email(self):
+		email = self.cleaned_data['email']
+		try:
+			match = User.objects.get(email = email)
+			return email
+		except User.DoesNotExist:
+			raise forms.ValidationError('There is no user registered with the specified E-Mail address.')
