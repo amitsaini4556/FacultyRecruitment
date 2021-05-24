@@ -1,0 +1,120 @@
+{% extends 'jobs/jobsMain.html' %}
+{% load static %}
+{% block content %}
+<main>
+  <section class="featured-places">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-xs-12">
+          <div>
+            <img src="{% static 'jobs/img/product-1-720x480.jpg' %}" alt="" class="img-responsive wc-image">
+          </div>
+          <br>
+        </div>
+        <div class="col-lg-9 col-md-9 col-xs-12">
+          <h2><strong style="color:#2C4700;" class="text-primary">Job Title</strong></h2>
+          <p class="lead">
+            <i class="fa fa-map-marker"></i> Location &nbsp;&nbsp;
+            <i class="fa fa-calendar"></i> Apply By &nbsp;&nbsp;
+          </p>
+          <div class="blue-button">
+            <a href="{% url 'applyJob' %}">Apply for this job</a>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <div class="accordions">
+        <ul class="accordion">
+          <li>
+            <a class="accordion-trigger">Job Description</a>
+            <div class="accordion-content">
+              <p>Details</p><br>
+              <p><b>Number of openings:</b> number</p>
+              <br>
+              <p><b>College:</b>college name
+              </p>
+              <p>
+                <span>Mobile phone</span>
+                <br>
+                <strong>
+                  <a href="tel:456789123">456789123</a>
+                </strong>
+              </p>
+              <p>
+                <span>Email</span>
+                <br>
+                <strong>
+                  <a href="mailto:john@carsales.com">john@carsales.com</a>
+                </strong>
+              </p>
+              <p>
+                <span>Website</span>
+                <br>
+                <strong>
+                  <a href="http://www.cannonguards.com/">http://www.cannonguards.com/</a>
+                </strong>
+              </p>
+            </div>
+          </li>
+        </ul> <!-- / accordion -->
+      </div>
+      <br><br>
+      {% if user.is_staff %}
+      <p style="color: black;font-size: 22px;"><b>Applicants</b></p>
+      <div class="accordions">
+        <ul class="accordion">
+          <li>
+            <a style="display: flex;justify-content: space-between;" class="accordion-trigger">
+              <div>Applicant Name</div>
+              <div style="padding-right: 50px;"><i style="color: green;" class="fa fa-check" aria-hidden="true"></i>
+                &nbsp;&nbsp;<i style="color: red;" class="fa fa-times" aria-hidden="true"></i></div>
+            </a>
+            <div class="accordion-content">
+              <p><b>Name: </b>name</p>
+              <br>
+              <p><b>Contact: </b>contact</p>
+              <br>
+              <p><b>Email: </b>email</p>
+              <br>
+              <p><b>Address: </b>address</p>
+              <br>
+              <p><b>Linkedin Profile: </b>url</p>
+              <br>
+              <p><b>Portfolio Link: </b>link</p>
+              <br>
+              <p><b>About: </b>about</p>
+              <br>
+              <p><b>Resume link or file: </b>link/file</p>
+            </div>
+          </li>
+          <li>
+            <a style="display: flex;justify-content: space-between;" class="accordion-trigger">
+              <div>Applicant Name</div>
+              <div style="padding-right: 50px;"><i style="color: green;" class="fa fa-check" aria-hidden="true"></i>
+                &nbsp;&nbsp;<i style="color: red;" class="fa fa-times" aria-hidden="true"></i></div>
+            </a>
+            <div class="accordion-content">
+              <p><b>Name: </b>name</p>
+              <br>
+              <p><b>Contact: </b>contact</p>
+              <br>
+              <p><b>Email: </b>email</p>
+              <br>
+              <p><b>Address: </b>address</p>
+              <br>
+              <p><b>Linkedin Profile: </b>url</p>
+              <br>
+              <p><b>Portfolio Link: </b>link</p>
+              <br>
+              <p><b>About: </b>about</p>
+              <br>
+              <p><b>Resume link or file: </b>link/file</p>
+            </div>
+          </li>
+        </ul> <!-- / accordion -->
+      </div>
+      {% endif %}
+    </div>
+  </section>
+</main>
+{% endblock content %}

@@ -9,3 +9,6 @@ def addJob(request):
 @login_required(login_url='login')
 def applyJob(request):
     return render(request,'jobs/jobApplyForm.html')
+
+def showJobDetails(request):
+    return render(request, 'jobs/jobDetails.html')

@@ -46,19 +46,19 @@ section {
 
 .blue-button a {
   display: inline-block;
-  background-color: #4883ff;
+  background-color:#2C4700;
   color: #fff;
   font-size: 15px;
   font-weight: 500;
   padding: 10px 16px;
   text-decoration: none;
-  border: 2px solid #4883ff;
+  border: 2px solid #2C4700;
   transition: all 0.5s;
 }
 
 .blue-button a:hover {
   background-color: transparent;
-  color: #4883ff;
+  color: #2C4700;
 }
 
 
@@ -773,7 +773,7 @@ section.our-services .service-item h4 {
 }
 
 .accordion-trigger.active:after {
-  background-color: #4883ff;
+  background-color:#2C4700;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
