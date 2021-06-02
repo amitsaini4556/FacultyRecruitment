@@ -12,3 +12,7 @@ def applyJob(request):
 
 def showJobDetails(request):
     return render(request, 'jobs/jobDetails.html')
+
+@login_required(login_url='login')
+def dashboard(request):
+    return render(request, 'jobs/jobStatus.html')
