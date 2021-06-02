@@ -1,3 +1,4 @@
+<title>User Account Login</title>
 {% extends 'userAccounts/accountsmainTemplate.html' %}
 {% block content %}
 	<div class="limiter">
@@ -37,7 +38,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt3">
+							<a href="{% url 'reset_password' %}" class="txt3">
 								Forgot Password?
 							</a>
 						</div>
