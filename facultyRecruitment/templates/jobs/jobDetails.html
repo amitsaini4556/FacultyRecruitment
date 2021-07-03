@@ -1,24 +1,73 @@
 {% extends 'jobs/jobsMain.html' %}
 {% load static %}
 {% block content %}
+<style media="screen">
+  .Accepted {
+    border: 2px solid green;
+    padding: 5px;
+    border-radius: 25px;
+    font-size:10px;
+    margin-right:30px;
+    color:green
+  }
+  .Rejected {
+    border: 2px solid red;
+    padding: 5px;
+    border-radius: 25px;
+    font-size:10px;
+    margin-right:30px;
+    color:red;
+  }
+  .In-Progress {
+    border: 2px solid orange;
+    padding: 5px;
+    border-radius: 25px;
+    font-size:10px;
+    margin-right:30px;
+    color:orange;
+  }
+</style>
 <main>
   <section class="featured-places">
-    <div class="container">
+    <div class="container" style="margin-top:5%;">
       <div class="row">
         <div class="col-lg-3 col-md-3 col-xs-12">
           <div>
-            <img src="{% static 'jobs/img/product-1-720x480.jpg' %}" alt="" class="img-responsive wc-image">
+            <img src="{{ job.collegeId.image.url }}" alt="" class="img-responsive wc-image" style="width:150px;height:120px;">
           </div>
           <br>
         </div>
         <div class="col-lg-9 col-md-9 col-xs-12">
-          <h2><strong style="color:#2C4700;" class="text-primary">Job Title</strong></h2>
+          <h2><strong style="color:#2C4700;" class="text-primary">{{ job.position }}</strong></h2>
           <p class="lead">
-            <i class="fa fa-map-marker"></i> Location &nbsp;&nbsp;
-            <i class="fa fa-calendar"></i> Apply By &nbsp;&nbsp;
+            <i class="fa fa-calendar">&nbsp; Apply By : {{ job.applyBy }}</i><br>
+            <i class="fa fa-map-marker">&nbsp;&nbsp; Location :{{ job.location }}</i>
           </p>
+
           <div class="blue-button">
-            <a href="{% url 'applyJob' %}">Apply for this job</a>
+            <!-- <a href="{% url 'applyJob' job.jobId %}">set for reminder</a> -->
+            <img id="reminderloader" src="{% static 'jobs/img/loader.gif' %}" alt="" style="width:20px;height:20px;margin-right:30px;" hidden>
+            {% now "Y-m-d" as todays_date %}
+            {% if alreadyApply == 'Yes' %}
+              {% if todays_date > job.applyBy|date:"Y-m-d" %}
+                <a id="reminder" data-url = "{% url 'reminder' user.id job.jobId %}" style="pointer-events: none;color:red !important;background-color:#ffe6e;">set for reminder</a>&nbsp;
+                <a href="{% url 'applyJob' job.jobId %}" style="pointer-events: none;color:red !important;background-color:#ffe6e;">Apply for this job</a>
+              {% else %}
+                <a id="reminder"  data-url = "{% url 'reminder' user.id job.jobId %}" style="pointer-events: none;">set for reminder</a>&nbsp;
+                <a href="{% url 'applyJob' job.jobId %}" style="pointer-events: none;">Apply for this job</a>
+              {% endif %}
+            {% else %}
+              {% if todays_date > job.applyBy|date:"Y-m-d" %}
+                <a id="reminder"  data-url = "{% url 'reminder' user.id job.jobId %}" style="pointer-events: none;color:red !important;background-color:#ffe6e6;">set for reminder</a>&nbsp;
+                <a href="{% url 'applyJob' job.jobId %}" style="pointer-events: none;color:red !important;background-color:#ffe6e6;">Apply for this job</a>
+              {% else %}
+                {% if user.is_authenticated %}
+                <a id="reminder" href="#" data-url="{% url 'reminder' user.id job.jobId %}" aria-hidden="true">set for reminder</a>
+                {% endif %}
+                <a href="{% url 'applyJob' job.jobId %}">Apply for this job</a>
+              {% endif %}
+            {% endif %}
+            <p id="reminderMsg"></p>
           </div>
         </div>
       </div>
@@ -28,30 +77,25 @@
           <li>
             <a class="accordion-trigger">Job Description</a>
             <div class="accordion-content">
-              <p>Details</p><br>
-              <p><b>Number of openings:</b> number</p>
-              <br>
-              <p><b>College:</b>college name
-              </p>
+              <p><b>Details :</b></p><p style="text-align: justify;">{{ job.description }}</p>
+              <p><b>Number of openings:</b> {{ job.availablePositions }}</p>
+              <p><b>College:</b> {{ job.collegeId.collegeName }}</p>
               <p>
-                <span>Mobile phone</span>
-                <br>
+                <span><b>Mobile Phone :</b></span>
                 <strong>
-                  <a href="tel:456789123">456789123</a>
+                  <a href="tel:{{ job.adminPhoneNumber }}">{{ job.adminPhoneNumber }}</a>
                 </strong>
               </p>
               <p>
-                <span>Email</span>
-                <br>
+                <span><b>Email :</b></span>
                 <strong>
-                  <a href="mailto:john@carsales.com">john@carsales.com</a>
+                  <a href="mailto:{{ job.adminEmail }}">{{ job.adminEmail }}</a>
                 </strong>
               </p>
               <p>
-                <span>Website</span>
-                <br>
+                <span><b>Website :</b></span>
                 <strong>
-                  <a href="http://www.cannonguards.com/">http://www.cannonguards.com/</a>
+                  <a href="{{ job.collegeWebsite }}">College Site</a>
                 </strong>
               </p>
             </div>
@@ -59,62 +103,88 @@
         </ul> <!-- / accordion -->
       </div>
       <br><br>
-      {% if user.is_staff %}
+      {% if user.is_staff and user.id == job.adminId.id %}
       <p style="color: black;font-size: 22px;"><b>Applicants</b></p>
+      {% if applicants %}
       <div class="accordions">
         <ul class="accordion">
+          {% for applicant in applicants %}
           <li>
             <a style="display: flex;justify-content: space-between;" class="accordion-trigger">
-              <div>Applicant Name</div>
-              <div style="padding-right: 50px;"><i style="color: green;" class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;<i style="color: red;" class="fa fa-times" aria-hidden="true"></i></div>
+              <div>{{ applicant.name }}</div>
+              <img id="loader-{{ applicant.userId.id }}" src="{% static 'jobs/img/loader.gif' %}" alt="" style="width:20px;height:20px;margin-right:30px;" hidden>
+              <span id="status-{{ applicant.userId.id }}" class = "{{ applicant.status }}">{{ applicant.status }}</span>
             </a>
             <div class="accordion-content">
-              <p><b>Name: </b>name</p>
+              <p><b>Name: </b>{{ applicant.name }}</p>
               <br>
-              <p><b>Contact: </b>contact</p>
+              <p><b>Applied Date: </b>{{ applicant.applyDate }}</p>
               <br>
-              <p><b>Email: </b>email</p>
+              <p><b>Contact: </b>{{ applicant.phoneNumber }}</p>
               <br>
-              <p><b>Address: </b>address</p>
+              <p><b>Email: </b>{{ applicant.email }}</p>
               <br>
-              <p><b>Linkedin Profile: </b>url</p>
+              <p><b>Address: </b>{{ applicant.location }}</p>
               <br>
-              <p><b>Portfolio Link: </b>link</p>
+              {% if applicant.linkedInProfileLink %}
+              <p><b>Linkedin Profile: </b><a href="{{ applicant.linkedInProfileLink }}">Link</a></p>
               <br>
-              <p><b>About: </b>about</p>
+              {% endif %}
+              {% if applicant.portfolioLink %}
+              <p><b>Portfolio Link: </b><a href="{{ applicant.portfolioLink }}">Link</a></p>
               <br>
-              <p><b>Resume link or file: </b>link/file</p>
+              {% endif %}
+              <p><b>About: </b>{{ applicant.queAboutUs }}</p>
+              <br>
+              <p><b>Resume link or file: </b><a href="{{ applicant.resume.url }}">Link</a></p>
+
+              <div style="padding-right: 50px;font-size:30px">
+                <i style="color: green;cursor: pointer;" class="fa fa-check status" aria-hidden="true" data-url = "{% url 'updateStatus' applicant.userId.id job.jobId 'accept' %}" data-applicatId = "{{ applicant.userId.id }}"></i>
+                &nbsp;&nbsp;<i style="color: red;cursor: pointer" class="fa fa-times status" aria-hidden="true" data-url = "{% url 'updateStatus' applicant.userId.id job.jobId 'reject' %}" data-applicatId = "{{ applicant.userId.id }}"></i>
+                &nbsp;&nbsp;<i style="color: black;cursor: pointer" class="fa fa-arrow-down status" data-url="{% url 'download' applicant.userId.id job.jobId %}" aria-hidden="true"></i>
+              </div>
             </div>
           </li>
-          <li>
-            <a style="display: flex;justify-content: space-between;" class="accordion-trigger">
-              <div>Applicant Name</div>
-              <div style="padding-right: 50px;"><i style="color: green;" class="fa fa-check" aria-hidden="true"></i>
-                &nbsp;&nbsp;<i style="color: red;" class="fa fa-times" aria-hidden="true"></i></div>
-            </a>
-            <div class="accordion-content">
-              <p><b>Name: </b>name</p>
-              <br>
-              <p><b>Contact: </b>contact</p>
-              <br>
-              <p><b>Email: </b>email</p>
-              <br>
-              <p><b>Address: </b>address</p>
-              <br>
-              <p><b>Linkedin Profile: </b>url</p>
-              <br>
-              <p><b>Portfolio Link: </b>link</p>
-              <br>
-              <p><b>About: </b>about</p>
-              <br>
-              <p><b>Resume link or file: </b>link/file</p>
-            </div>
-          </li>
+          {% endfor %}
         </ul> <!-- / accordion -->
       </div>
+      {% else %}
+        <img style="text-align:center;"src="https://thefitzip.com/public/frontend/imgs/norecordfound.png" />
+      {% endif %}
       {% endif %}
     </div>
   </section>
 </main>
+<script type="text/javascript">
+$('.status').click(function(){
+var url,applicatId;
+url = $(this).attr("data-url");
+applicatId = $(this).attr("data-applicatId");
+id = 'status-'+applicatId
+$("#loader-"+applicatId).show();
+$("#status-"+applicatId).hide();
+$.ajax(
+{
+    url: url,
+success: function( data )
+{
+  document.getElementById(id).className = data;
+  document.getElementById(id).innerHTML = data;
+  $("#loader-"+applicatId).hide();
+  $("#status-"+applicatId).show();
+} }) });
+
+$('a[id = reminder]').click(function(){
+url = $(this).attr("data-url");
+$("#reminderloader").show();
+$.ajax(
+{
+    url: url,
+success: function( data )
+{
+$("#reminderMsg").html(data);
+$("#reminderloader").hide();
+$("#reminder").hide();
+} }) });
+</script>
 {% endblock content %}

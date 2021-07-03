@@ -1,110 +1,185 @@
-
 {% extends 'jobs/jobsMain.html' %}
 {% load static %}
 {% block content %}
-<section class="banner banner-secondary" id="top"
+<style media="screen">
+
+  /* Button used to open the contact form - fixed at the bottom of the page */
+  .open-button {
+    background-color: #2C4700;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    /* width: 280px; */
+  }
+
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    padding: 10px;
+    background: #2C4700;
+    color:white;
+  }
+
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+  .parallax {
+  width:100%;
+  height:auto;
+  position: relative;
+}
+</style>
+<!-- <section class="banner banner-secondary" id="top"
 style="background-image: url(https://www.mpuat.ac.in/images/slider/large/img92680010.jpg);">
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="banner-caption">
-                <div style="background-color:#2C4700 ;" class="line-dec"></div>
+                <div class="line-dec"></div>
                 <h2>Jobs</h2>
             </div>
         </div>
     </div>
 </div>
-</section>
-    <main>
-        <section class="featured-places">
+</section> -->
+    <main><br><br><br><br><br>
+      <!-- <div class="parallax"></div> -->
+      <div class="parallax">
+        <img src="https://www.mpuat.ac.in/images/slider/large/img92680010.jpg" class="parallax" alt="">
+        <!-- <h2 style="position: absolute !important;">Jobs</h2> -->
+      </div>
+        <section class="featured-places" style="position:inherit;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-xs-12">
-                        <div class="featured-item">
+
+                    <div class="col-md-8 col-xs-12" style="">
+                      {% if jobs %}
+                      {% for job in jobs %}
+                        <div id = "job-{{ job.jobId }}" class="featured-item">
                             <div class="thumb">
-                                <div style="background-color:#2C4700;" class="thumb-img">
-                                    <img src="" alt="">
+                                <div class="thumb-img" style="background-color:#2C4700 !important;z-index:0;">
+                                    <img src="" alt="" style="background-color:#2C4700;" >
                                 </div>
                             </div>
-                            <div class="down-content">
+                            {% now "Y-m-d" as todays_date %}
+                            {% if todays_date > job.applyBy|date:"Y-m-d" %}
+                              <div class="down-content" style="background-color:#ffe6e6">
+                            {% else %}
+                              <div class="down-content">
+                            {% endif %}
                                 <div class="row">
                                     <div class="col-md-8 col-xs-8">
-                                        <h4>Position name</h4>
-                                        <p> College name</p>
+                                        <h4>{{ job.position }}</h4>
+                                        <p>{{ job.collegeId.collegeName }}</p>
                                         <div class="overlay-content">
-                                            <strong title="Posted on"><i class="fa fa-calendar"></i> Apply by</strong>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <strong title="Location"><i class="fa fa-map-marker"></i> Location</strong>
+                                            <strong title="Posted on"><i class="fa fa-calendar"></i>&nbsp; Apply by : {{ job.applyBy }}</strong>
+                                            <br>
+                                            <strong title="Location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp; Location : {{ job.location }}</strong>
                                             <br></br>
                                         </div>
-                                        {% if user.is_staff %}
+                                        {% if user.is_staff and user.id == job.adminId.id %}
                                         <div class="overlay-content">
+                                          <a href="{% url 'updateJob' job.jobId %}">
                                             <button style="background-color:#ecec02ba;color: black;font-weight: 600;"
-                                                class="btn"><i class="fa fa-pencil"></i></button>
+                                                class="btn"><i class="fa fa-pencil"></i></button></a>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
+                                          <!-- <a href="{% url 'deleteJob' job.jobId %}"> -->
                                             <button style="background-color:red;color: white;font-weight: 600;"
-                                                class="btn"><i class="fa fa-trash"></i></button>
+                                                class="btn"><i class="fa fa-trash" data-catid = "{{ job.jobId }}"></i></button>
                                             <br></br>
                                         </div>
                                         {% endif %}
                                     </div>
-                                    <div class="col-md-4 col-xs-4"><img style="margin-bottom: 4px;"
-                                            src="{% static 'jobs/img/product-1-720x480.jpg' %}" alt=""></div>
+                                    <div class="col-md-4 col-xs-4"><img style="margin-bottom: 4px;width:150px;height:120px;"src="{{ job.collegeId.image.url }}" alt=""></div>
                                 </div>
                                 <div class="text-button">
-                                    <a href="{% url 'jobDetails' %}">View More</a>
+                                    <a href="{% url 'jobDetails' job.jobId %}">View More</a>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                          <img src="https://www.justjaldi.com/images/empty_item.svg">
+                        {% endif %}
                     </div>
+
                     <div class="col-md-4 col-xs-12">
-                        <form action="#">
-                            <h4 style="margin-bottom: 15px">Category</h4>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>RAJASTHAN COLLEGE OF AGRICULTURE (RCA), UDAIPUR</span>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>COLLEGE OF DAIRY AND FOOD TECHNOLOGY (CDFT), UDAIPUR</span>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>COLLEGE OF TECHNOLOGY AND ENGINEERING (CTAE), UDAIPUR</span>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>COLLEGE OF FISHERIES (COF), UDAIPUR
-                                    </span>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>COLLEGE OF COMMUNITY AND APPLIED SCIENCE (CCAS), UDAIPUR
-                                    </span>
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox">
-                                    <span>COLLEGE OF AGRICULTURE (COA), BHILWARA
-                                    </span>
-                                </label>
-                            </div>
-                            <br>
-                            <button style="background-color: #2C4700;color: white;font-weight: 700;">Search</button>
-                        </form>
+                        <button class="open-button" onclick="openForm()"> Search <i class="fa fa-search" aria-hidden="true"></i></button>
+                          <div class="form-popup" id="myForm">
+                            <form action="{% url 'search' %}" method="POST">
+                              {% csrf_token %}
+                                <h4 style="margin-bottom: 15px">Category</h4>
+                                {% for college in colleges %}
+                                <div>
+                                    <label>
+                                      {% if college.CollegeId|slugify  in checklist %}
+                                        <input type="checkbox" id="{{ college.CollegeId }}" value="{{ college.CollegeId }}" name="checkbox" checked>
+                                      {% else %}
+                                        <input type="checkbox" id="{{ college.CollegeId }}" value="{{ college.CollegeId }}" name="checkbox">
+                                      {% endif %}
+                                      <span>{{ college.collegeName }}</span>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                                <br>
+                                <button type="submit" onclick="$('input#sublist').click();" class="btn"style="background-color: #2C4700;color: white;font-weight: 700;">Search</button>
+                                <button type="button" class="btn cancel" style="background-color: #2C4700;color: white;font-weight: 700;" onclick="closeForm()">Close</button>
+                            </form>
+                          </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+<script type="text/javascript">
+$('.fa-trash').click(function(){
+var id;
+id = $(this).attr("data-catid");
+$.ajax(
+{
+    url: "deleteJob/"+id,
+success: function( data )
+{
+  $("#job-" + id).remove();
+   //window.location.reload(true);
+} }) });
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
 {% endblock content %}

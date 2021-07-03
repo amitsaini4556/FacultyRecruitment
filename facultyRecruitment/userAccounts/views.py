@@ -7,7 +7,7 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib.auth.models import Group
-# Create your views here.
+from jobs.views import EmailThreading
 
 # User can signIn with the username and password
 def signIn(request):
@@ -56,3 +56,6 @@ def signOut(request):
 
 def jobs(request):
     return render(request,'jobs/jobs.html')
+
+def view_404(request,exception):
+    return render(request,'jobs/404.html')

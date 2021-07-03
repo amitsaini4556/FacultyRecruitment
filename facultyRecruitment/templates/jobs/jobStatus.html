@@ -5,34 +5,61 @@
     <section class="featured-places">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12" style="margin-top:10%;">
                     <div class="featured-item">
+                      {% if jobs %}
+                      {% for job in jobs %}
+                        <div class="thumb">
+                            <div style="background-color:#2C4700;" class="thumb-img">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+
+                        <div class="down-content">
+                            <div class="row">
+                                <div class="col-md-7 col-xs-7">
+                                    <h4>{{ job.jobId.position }}</h4>
+                                    <p>{{ job.jobId.collegeName }}</p>
+                                    <div class="overlay-content" style="min-width: max-content;">
+                                        <strong title="Applied By"><i class="fa fa-calendar"></i>&nbsp; Applied Date : </strong> {{ job.applyDate }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                        <strong title="Location"><i class="fa fa-map-marker"></i>&nbsp;&nbsp; Location : </strong>{{ job.jobId.location }}
+                                        <br></br>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-xs-5">
+                                    <div class="progress">
+                                        {% if job.status == 'In-Progress' %}
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                              {{ job.status }}
+                                            </div>
+                                        {% elif job.status == 'Accepted' %}
+                                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                              {{ job.status }}
+                                            </div>
+                                        {% else %}
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                              {{ job.status }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                        {% else %}
                         <div class="thumb">
                             <div style="background-color:#2C4700;" class="thumb-img">
                                 <img src="" alt="">
                             </div>
                         </div>
                         <div class="down-content">
-                            <div class="row">
-                                <div class="col-md-7 col-xs-7">
-                                    <h4>Position name</h4>
-                                    <p> College name</p>
-                                    <div class="overlay-content">
-                                        <strong title="Posted on"><i class="fa fa-calendar"></i> Apply by</strong>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <strong title="Location"><i class="fa fa-map-marker"></i> Location</strong>
-                                        <br></br>
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-xs-5">
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                                          In Progress
-                                        </div>
-                                      </div>
-                                </div>
-                            </div>
-                        </div>
+                          <!-- <img src="https://thefitzip.com/public/frontend/imgs/norecordfound.png" /> -->
+                          <span style="font-size:100px;text-align:center;">&#128532;</span>
+                          <span style="font-size:50px;text-align:center;color:black;"><strong>NO RECORD FOUND</strong></span>
+                          </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

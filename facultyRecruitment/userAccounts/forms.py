@@ -15,7 +15,7 @@ class CreateUserForm(UserCreationForm):
 	def clean_email(self):
 		email = self.cleaned_data.get('email')
 
-		if self.isEmailValid(email):
+		if validate_email(email):
 			try:
 				match = User.objects.get(email = email)
 			except User.DoesNotExist:
@@ -23,13 +23,6 @@ class CreateUserForm(UserCreationForm):
 			raise forms.ValidationError('This email address is already in use.')
 		else:
 			raise forms.ValidationError('This email address is Invalid.')
-
-	def isEmailValid(self,email):
-		try:
-			validate_email(email,check_mx=True,verify=True)
-			return True
-		except :
-			return False
 
 class EmailValidationOnForgotPassword(PasswordResetForm):
 	def clean_email(self):

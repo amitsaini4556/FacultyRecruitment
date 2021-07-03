@@ -1,0 +1,44 @@
+<h1 style="text-align: left;"><em><strong>Applicant Details</strong></em></h1>
+<table style="width: 100%; border-collapse: collapse; float: left;" border="0" cellspacing="5" cellpadding="5">
+<tbody style="font-size:12px;">
+<tr>
+<td style="width: 28.9292%;"><p>FullName</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.name }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Phone No.</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.phoneNumber }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Email</td>
+<td style="width: 71.0708%;"><p>{{ applicant.email }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Address</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.location }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>LinkedIn Profile</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.linkedInProfileLink }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Personal Portfolio</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.portfolioLink }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Applied Job Name</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.jobId.position }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Application Status</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.status }}</p></td>
+</tr>
+<tr>
+<td style="width: 28.9292%;"><p>Applied Date</p></td>
+<td style="width: 71.0708%;"><p>{{ applicant.applyDate }}</p></td>
+</tr>
+</tbody>
+</table
+<p style="font-size:12px;">About Yourself :</p>
+<p style="text-align: justify;font-size:12px;">{{ applicant.queAboutUs }}</p>
+<embed type="application/pdf" src="media/{{ applicant.resume }}" width="300" height="300">
